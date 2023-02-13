@@ -1,20 +1,24 @@
 package com.Wipro.User.Service.Impl;
 
 
+import com.Wipro.User.Entity.Items;
+import com.Wipro.User.Entity.Orders;
 import com.Wipro.User.Entity.User;
 import com.Wipro.User.Exceptions.ResourceNotFound;
 import com.Wipro.User.Repository.UserRepository;
 import com.Wipro.User.Service.UserService;
-import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServicesImpl implements UserService {
@@ -69,4 +73,30 @@ public class UserServicesImpl implements UserService {
         user.setOrders(ordersOfUser);
         return user;
     }
+
+    @Override
+    public User getUserOrderItems(String userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFound("Customer with given details not found on server !"));
+        //http://localhost:8083/order/345ce7f6-bd58-4a2b-abe4-ccd350e76c64
+        ArrayList<Orders> ordersOfUser=restTemplate.getForObject("http://localhost:8083/order/"+user.getUserId(), ArrayList.class);
+        log.info("{} ",ordersOfUser);
+
+        List<Orders> ordersList=ordersOfUser.stream().map(orders -> {
+
+            //api call to item service
+
+
+
+            return orders;
+
+
+
+        }).collect(Collectors.toList());
+
+
+
+        user.setOrders(ordersList);
+        return user;
+    }
+
 }

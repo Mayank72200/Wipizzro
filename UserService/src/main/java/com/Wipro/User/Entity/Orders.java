@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,8 @@ public class Orders {
     private String Type;
     private String Time;
     private String itemId;
+
+    private List<Items> items = new ArrayList<>();
 
 
 }

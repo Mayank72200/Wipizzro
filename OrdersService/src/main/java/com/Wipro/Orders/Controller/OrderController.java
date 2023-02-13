@@ -1,5 +1,6 @@
 package com.Wipro.Orders.Controller;
 
+import com.Wipro.Orders.Entity.Items;
 import com.Wipro.Orders.Entity.Orders;
 import com.Wipro.Orders.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,21 @@ public class OrderController {
     public ResponseEntity <List<Orders>> getByUserId(@PathVariable String userId){
 
         return ResponseEntity.ok(orderService.getOrdersByUserId(userId));
+    }
+
+    @GetMapping("/id/{orderId}")
+    public ResponseEntity<Orders> getByOrderId(@PathVariable String orderId){
+
+        Orders order=orderService.getOrderById(orderId);
+        return ResponseEntity.ok().body(order);
+    }
+
+    @GetMapping("/getItems/{orderId}")
+    public ResponseEntity<List<Items>> getOrderitems(@PathVariable String orderId){
+
+
+
+        return ResponseEntity.ok(orderService.getOrderItems(orderId));
     }
 
 

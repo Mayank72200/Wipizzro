@@ -43,14 +43,14 @@ public class ItemController {
 
 
     @GetMapping("/delete/{itemId}")
-    public void deleteCustomer(@PathVariable String itemId, Principal principal){
+    public void deleteItem(@PathVariable String itemId, Principal principal){
 
         itemService.deleteItem(itemId);
 
     }
 
     @PutMapping("/update/{itemId}")
-    public void updateCustomer(@RequestBody Items item, @PathVariable String itemId){
+    public void updateItem(@RequestBody Items item, @PathVariable String itemId){
         itemService.updateItems(item,itemId);
     }
 

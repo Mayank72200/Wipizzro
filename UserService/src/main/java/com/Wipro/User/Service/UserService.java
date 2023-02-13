@@ -17,4 +17,7 @@ public interface UserService {
     User updateUser(User user, String userId);
 
     User getUserOrders(String userId);
+
+    User getUserOrderItems(String userId);
+
 }
